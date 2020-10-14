@@ -1,0 +1,61 @@
+{% extends 'baseE.html' %}
+{% load static %}
+{% block title %} Login {% endblock title %}
+{% block loginContent %}
+  <div class="container">
+    <div class="card card-login mx-auto mt-5">
+      <div class="card-header">Login</div>
+      <div class="card-body">
+      <!-- validation messsage -->
+        {% if form.errors %}
+            {% for field in form %}
+                {% for error in field.errors %}
+                    <div class="alert alert-danger">
+                        <strong>{{ error|escape }}</strong>
+                    </div>
+                {% endfor %}
+            {% endfor %}
+            {% for error in form.non_field_errors %}
+                <div class="alert alert-danger">
+                    <strong>{{ error|escape }}</strong>
+                </div>
+            {% endfor %}
+        {% endif %}
+        <!-- end message -->
+        {% if messages %}
+        <ul class="messages">
+            {% for message in messages %}
+            <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>
+                {% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}Important: {% endif %}
+                {{ message }}
+            </li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+        <form method="post" action="/login/">
+        {% csrf_token %}
+          <div class="form-group">
+            <div class="form-label-group">
+                {{ form.email }}              
+              <label for="inputEmail">Enter Email or Username</label>
+              
+            </div>
+          </div>
+          <div class="form-group">
+            <div class="form-label-group">            
+              {{ form.password }}
+              <label for="inputPassword">Password</label>
+            </div>
+          </div>          
+          <input type="submit" class="btn btn-primary btn-block" value="Login" name="Login" />
+          
+        </form>
+        <div class="text-center">
+          <a class="d-block small mt-3" href="/register">Register an Account</a>
+          {# <a class="d-block small" href="forgot-password.html">Forgot Password?</a> #}
+        </div>
+      </div>
+    </div>
+  </div>
+
+{% endblock %}

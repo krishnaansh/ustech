@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% load static %}
+{% block title %} Profile {% endblock title %}
+{% block content %}
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="{% static '/css/custom.css' %}">
+<!-- Breadcrumbs-->
+<ol class="breadcrumb">
+    <li class="breadcrumb-item">
+        <a href="/">Dashboard</a>
+    </li>
+    <li class="breadcrumb-item active">Profile</li>
+</ol>
+
+<!-- Page Content -->
+<div class="container">
+    <div class="row">
+        {% if messages %}
+        <ul class="messages">
+            {% for message in messages %}
+            <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>
+                {% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}Important: {% endif %}
+                {{ message }}
+            </li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+        <div class="col-sm-4 col-md-4">
+
+        </div>
+        
+        <div class="col-sm-2 col-md-4">                
+                <!-- {% cycle 'odd' 'even' %}
+                {{ value|default:"nothing" }}
+                {% trans "This is the title" as the_title %} -->                
+            <blockquote class="blockquote">                        
+                <p class="mb-0">{{ data.first_name|title }}</p> <small> <i class="glyphicon glyphicon-map-marker"></i></small>
+            </blockquote>
+            <p class="lead"> <i class="fa fa-envelope"></i> {{ data.email }}                
+                <br /> <i class="fa fa-user"></i> {{ data.username }}
+                <br /> <i class="fa fa-clock"></i> {{ data.created_at }}</p>
+                
+        </div>
+    </div>
+</div>
+{% endblock content %}

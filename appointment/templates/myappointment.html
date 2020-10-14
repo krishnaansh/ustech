@@ -1,0 +1,68 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %} Appointments {% endblock title %}
+{% block content %}
+<div class="container-fluid">
+
+<!-- Breadcrumbs-->
+<ol class="breadcrumb">
+    <li class="breadcrumb-item">
+    <a href="#">Dashboard</a>
+    </li>
+    <li class="breadcrumb-item active">Appointments</li>
+</ol>
+
+<!-- Icon Cards-->
+
+
+
+
+<!-- DataTables Example -->
+<div class="card mb-3">
+    <div class="card-header">
+    <i class="fas fa-table"></i>
+    My Appointments</div>
+    <div class="card-body">
+    <div class="table-responsive">
+        {% if messages %}
+        <ul class="messages">
+            {% for message in messages %}
+            <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>
+                {% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}Important: {% endif %}
+                {{ message }}
+            </li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+        <thead>
+            <tr>
+            <th>Doctor Name</th>
+            <th>Specialist</th>
+            <th>Charges</th>
+            <th>Timings</th>
+            
+            </tr>
+        </thead>
+        
+        <tbody>
+            {% for appoint in appointments %}
+            <tr>
+            
+            <td>{{ appoint.doctor_id.doctor_name|title }}</td>
+            <td>{{ appoint.doctor_id.specialist }}</td>
+            <td>{{ appoint.doctor_id.charges }}</td>
+            <td>{{ appoint.timing }}</td>            
+            
+            </tr>      
+            {% endfor %}      
+        </tbody>
+        </table>
+    </div>
+    </div>
+    <div class="card-footer small text-muted">Today {% now "jS F Y H:i" %}</div>
+</div>
+
+</div>
+<!-- /.container-fluid -->
+{% endblock %}
